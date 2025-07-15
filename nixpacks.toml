@@ -1,0 +1,11 @@
+[phases.setup]
+nixPkgs = ["php82", "composer"]
+
+[phases.build]
+cmds = [
+  "composer install --no-dev --optimize-autoloader",
+  "php artisan config:cache"
+]
+
+[phases.start]
+cmd = "heroku-php-apache2 public/"
