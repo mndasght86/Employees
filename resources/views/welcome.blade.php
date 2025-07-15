@@ -22,7 +22,264 @@
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
 
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+    <style>
+        :root {
+            --bs-primary-rgb: 59, 130, 246;
+            --bs-primary: #3B82F6;
+            --bs-dark-rgb: 30, 41, 59;
+            --bs-dark: #1E293B;
+            --bs-secondary: #64748B;
+            --bs-light: #F1F5F9;
+            --bs-font-sans-serif: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: #fff;
+            color: var(--bs-dark);
+        }
+
+        /* --- Navbar --- */
+        .navbar {
+            transition: background-color 0.4s ease, box-shadow 0.4s ease;
+        }
+
+        .navbar.scrolled {
+            background-color: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+
+        .navbar-brand {
+            font-weight: 700;
+        }
+
+        .nav-link {
+            font-weight: 500;
+            color: #475569;
+            /* slate-600 */
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            color: var(--bs-primary) !important;
+            font-weight: 600;
+        }
+
+        .btn-login {
+            font-weight: 600;
+            padding: 0.6rem 1.5rem;
+        }
+
+        /* --- Hero Section --- */
+        #hero {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-image: linear-gradient(to bottom right, #EFF6FF, #fff, #F1F5F9);
+            overflow: hidden;
+            padding-top: 80px;
+        }
+
+        #hero::before,
+        #hero::after {
+            content: '';
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            border-radius: 50%;
+            filter: blur(100px);
+            z-index: 0;
+        }
+
+        #hero::before {
+            background-color: rgba(59, 130, 246, 0.15);
+            top: -100px;
+            left: -100px;
+        }
+
+        #hero::after {
+            background-color: rgba(168, 85, 247, 0.15);
+            /* purple */
+            bottom: -100px;
+            right: -100px;
+        }
+
+        #hero .container {
+            position: relative;
+            z-index: 1;
+        }
+
+        #hero h1 {
+            font-weight: 800;
+            font-size: 3.5rem;
+        }
+
+        .gradient-text {
+            background: linear-gradient(90deg, var(--bs-primary), var(--bs-dark));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-fill-color: transparent;
+        }
+
+        #hero p {
+            font-size: 1.15rem;
+            color: var(--bs-secondary);
+        }
+
+        .btn-hero {
+            font-size: 1.1rem;
+            font-weight: 700;
+            padding: 0.9rem 2rem;
+            transition: all 0.3s ease;
+        }
+
+        .btn-hero:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(59, 130, 246, 0.3);
+        }
+
+        /* --- Sections --- */
+        .section-padding {
+            padding: 6rem 0;
+        }
+
+        .section-title {
+            font-weight: 700;
+            font-size: 2.5rem;
+        }
+
+        .section-subtitle {
+            font-size: 1.1rem;
+            color: var(--bs-secondary);
+        }
+
+        /* --- Features Section --- */
+        .feature-card {
+            background-color: #F8FAFC;
+            /* slate-50 */
+            border: 1px solid #E2E8F0;
+            /* slate-200 */
+            padding: 2.5rem;
+            border-radius: 1rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            height: 100%;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+            border-color: var(--bs-primary);
+        }
+
+        .feature-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 1.5rem auto;
+            background-color: #DBEAFE;
+            /* blue-100 */
+            color: var(--bs-primary);
+            font-size: 2.5rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .feature-card h3 {
+            font-weight: 700;
+            font-size: 1.25rem;
+        }
+
+        /* --- About & Stats Section --- */
+        .stat-box {
+            background-color: #fff;
+            padding: 1.5rem;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 800;
+            color: var(--bs-primary);
+        }
+
+        /* --- CTA Section --- */
+        #cta {
+            background-image: linear-gradient(to right, var(--bs-primary), #60A5FA);
+            border-radius: 1rem;
+            color: white;
+            box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25);
+        }
+
+        #cta h2 {
+            font-weight: 800;
+        }
+
+        .btn-cta {
+            background-color: white;
+            color: var(--bs-primary);
+            font-weight: 700;
+            padding: 0.9rem 2rem;
+            transition: all 0.3s ease;
+        }
+
+        .btn-cta:hover {
+            background-color: var(--bs-light);
+            transform: scale(1.05);
+        }
+
+        /* --- Footer --- */
+        footer {
+            background-color: var(--bs-dark);
+            color: #94A3B8;
+            /* slate-400 */
+        }
+
+        footer h5 {
+            color: white;
+            font-weight: 600;
+        }
+
+        footer a {
+            color: #94A3B8;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        footer a:hover {
+            color: white;
+        }
+
+        .social-icons a {
+            font-size: 1.25rem;
+        }
+
+        /* --- Responsive --- */
+        @media (max-width: 991.98px) {
+            #hero h1 {
+                font-size: 2.8rem;
+            }
+
+            .section-padding {
+                padding: 4rem 0;
+            }
+        }
+
+        @media (max-width: 767.98px) {
+            #hero h1 {
+                font-size: 2.2rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+        }
+    </style>
 </head>
 
 <body>
@@ -158,7 +415,8 @@
                     <h5 class="fs-5">ManKar.id</h5>
                     <p class="small">Gedung Cyber, Lt. 10<br>Jl. Jend. Sudirman Kav. 52-53<br>Jakarta Selatan,
                         Indonesia</p>
-                    <p class="small mt-3"><strong>Email:</strong> info@ManKar.id<br><strong>Telepon:</strong> +62 21 1234
+                    <p class="small mt-3"><strong>Email:</strong> info@ManKar.id<br><strong>Telepon:</strong> +62 21
+                        1234
                         5678</p>
                 </div>
                 <div class="col-lg-2 col-6">
@@ -202,7 +460,105 @@
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
 
     <!-- Custom JS -->
-    <script src="{{ asset('js/app.js') }}"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // 1. Inisialisasi AOS (Animate On Scroll)
+            AOS.init({
+                duration: 800,
+                once: true,
+                offset: 50
+            });
+
+            // 2. Efek 'scrolled' pada Navbar
+            const navbar = document.querySelector('.navbar');
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 50) {
+                    navbar.classList.add('scrolled');
+                } else {
+                    navbar.classList.remove('scrolled');
+                }
+            });
+
+            // 3. Animasi Counter
+            function animateCounters() {
+                const counters = document.querySelectorAll('.stat-number');
+                counters.forEach(counter => {
+                    const target = +counter.getAttribute('data-target');
+                    counter.innerText = '0'; // Reset ke 0
+                    const updateCount = () => {
+                        const count = +counter.innerText;
+                        const speed = 200;
+                        const inc = Math.ceil(target / speed);
+
+                        if (count < target) {
+                            counter.innerText = Math.min(count + inc, target);
+                            setTimeout(updateCount, 15);
+                        } else {
+                            counter.innerText = target;
+                        }
+                    };
+                    updateCount();
+                });
+            }
+
+            const aboutSection = document.querySelector('#about');
+            const observer = new IntersectionObserver((entries) => {
+                if (entries[0].isIntersecting) {
+                    animateCounters();
+                    observer.disconnect(); // Hentikan observasi setelah animasi berjalan sekali
+                }
+            }, {
+                threshold: 0.4
+            });
+
+            if (aboutSection) {
+                observer.observe(aboutSection);
+            }
+
+            // 4. Update tahun di footer secara dinamis
+            document.getElementById('year').textContent = new Date().getFullYear();
+
+            // 5. Smooth scroll & Active link indicator
+            const navLinks = document.querySelectorAll('.nav-link');
+            const sections = document.querySelectorAll('section');
+
+            // Fungsi untuk smooth scroll
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    if (this.hash !== "") {
+                        e.preventDefault();
+                        const hash = this.hash;
+                        const targetElement = document.querySelector(hash);
+                        if (targetElement) {
+                            window.scrollTo({
+                                top: targetElement.offsetTop -
+                                70, // offset untuk fixed navbar
+                                behavior: 'smooth'
+                            });
+                        }
+                    }
+                });
+            });
+
+            // Fungsi untuk update active link saat scroll
+            window.addEventListener('scroll', () => {
+                let current = '';
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    if (pageYOffset >= sectionTop - 80) {
+                        current = section.getAttribute('id');
+                    }
+                });
+
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href').includes(current)) {
+                        link.classList.add('active');
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 
 </html>
